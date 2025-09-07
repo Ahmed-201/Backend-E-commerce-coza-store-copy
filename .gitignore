@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Logs
+logs
+*.log
+
+# Seeds file
+seeds.js
+
+# Coverage directory (testing tools)
+coverage/
+
+# Build output
+dist/
+build/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/
