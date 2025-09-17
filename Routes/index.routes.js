@@ -6,6 +6,9 @@ import addChildCategory from "../controllers/categoryControllers/addChildCategor
 
 import imageUpload from "../controllers/uploader.js";
 import upload from "../Utils/multerUploadImage.js";    //     multer middleware
+import getAllCategories from "../controllers/categoryControllers/getAllCategories.js";
+import getAllSubCategories from "../controllers/categoryControllers/getAllSubCategories.js";
+import getAllChildCategories from "../controllers/categoryControllers/getAllChildCategories.js";
 
 
 const router = Router();
@@ -18,10 +21,19 @@ router.post("/user/verifyOTP",verifyOTP);
 router.post("/user/resetPassword",resetPassword);
 
 
-
+  // main category routes
 router.post("/categories", addCategory);
+router.get("/categories", getAllCategories);
+
+
+    // sub category routes
 router.post("/subCategories", addSubCategory);
+router.get("/subCategories", getAllSubCategories);
+
+    // child cartegories routes 
 router.post("/childCategories", addChildCategory);
+router.get("/childCategories", getAllChildCategories);
+
 
 
 router.post("/imageUploads"  , upload.single("file"), imageUpload)

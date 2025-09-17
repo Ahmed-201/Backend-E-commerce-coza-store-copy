@@ -11,7 +11,7 @@ const app = express();
 // Correct way to parse incoming JSON
 app.use(express.json());
 
-app.use("/api", userRoutes);    // register API route
+app.use("/api", userRoutes);    // all routes start here API route
 
 
 

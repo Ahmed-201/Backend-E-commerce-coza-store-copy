@@ -22,10 +22,10 @@ const addChildCategory = async (req, res) => {
       return res.status(409).json({ message: "ChildCategory already exists" , status:409});
     }
 
-    const subCategory = await ChildCategory.create({ name });
+    const subCategory = await ChildCategory.create({ name , subCategoryId});
     return res.status(201).json(subCategory);
   } catch (error) {
-    console.log(error, "Subcategory error");
+    console.log(error, "childCategory error");
   }
 };
 
