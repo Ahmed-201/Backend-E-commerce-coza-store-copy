@@ -11,8 +11,12 @@ import getAllSubCategories from "../controllers/categoryControllers/getAllSubCat
 import getAllChildCategories from "../controllers/categoryControllers/getAllChildCategories.js";
 
 
+import {createProduct} from "../controllers/productControllers/createProduct.js";
+
+
 const router = Router();
 
+  // user auth routes
 router.post("/user/register", registerUser);
 router.post("/user/registerVendor", registerVendor);
 router.post("/user/login", loginUser);
@@ -34,8 +38,7 @@ router.get("/subCategories", getAllSubCategories);
 router.post("/childCategories", addChildCategory);
 router.get("/childCategories", getAllChildCategories);
 
-
-
-router.post("/imageUploads"  , upload.single("file"), imageUpload)
+  // product routes
+router.post("/createProduct"  , upload.array("productImages" , 5), createProduct)
 
 export default router;

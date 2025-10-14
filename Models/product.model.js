@@ -1,7 +1,17 @@
 import mongoose from "mongoose";
 
+
+const imageSchema = new mongoose.Schema({
+  url: { type: String, required: true },   // Cloudinary / AWS S3 URL
+});
+
 const productSchema = new mongoose.Schema(
   {
+    userId:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
     name: {
       type: String,
       required: true,
@@ -32,21 +42,12 @@ const productSchema = new mongoose.Schema(
       ref:"subCategory",
       required: true,
     },
-    childCaqtegory: {
+    childCategory: {
       type: mongoose.Schema.Types.ObjectId,
       ref:"childCategory",
       required: true,
     },
-
-    thumbnail: {
-      type: String, // Single main image
-      required: true,
-    },
-    images: [
-      {
-        type: String, // Remaining gallery images
-      },
-    ],
+    productImages: [imageSchema],
   },
   { timestamps: true }
 );

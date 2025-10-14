@@ -1,6 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import path from "path";
 
 // configure cloudinary
 cloudinary.config({
@@ -9,32 +8,42 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const imageUpload = async (req, res) => {
-  console.log(req.file, "local file path after multer");
-  if (!req.file) {
-    return res.status(400).json({ message: "No file uploaded" });
+// const imageUpload = async (req, res) => {
+const imageUpload = async (files) => {
+  // console.log(req.files, "local file path after multer");
+  console.log(files, "local file path after multer");
+  
+  if (!files) {
+    return ;
   }
 
   try {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "e-commerce-coza-store-cloning",
+    // Upload all files to Cloudinary
+    const uploadPromises = files.map(async (file) => {
+      const result = await cloudinary.uploader.upload(file.path, {
+        folder: "e-commerce-coza-store-cloning",
+      });
+
+      // Try deleting local file safely
+      try {
+        await fs.promises.unlink(file.path);
+        console.log("Deleted local file:", file.path);
+      } catch (err) {
+        console.warn("Failed to delete local file:", file.path, err.message);
+      }
+
+      return {
+        url: result.secure_url,
+        public_id: result.public_id,
+      };
     });
 
-    console.log(result, "cloudinary result after upload");
-    if (result) {
-      const filePath = path.resolve(req.file.path); // normalize path
+    const uploadedImages = await Promise.all(uploadPromises);
 
-      fs.unlinkSync(filePath); // delete file
-      console.log("File deleted:", filePath);
+    return uploadedImages;
 
-      res.json({
-        message: "File uploaded successfully!",
-        url: result.secure_url, // cloudinary image url
-        public_id: result.public_id,
-      });
-    }
   } catch (err) {
-    console.error("Error uploading file:", err);
+    console.error("Error uploading file in imageUploader:", err);
   }
 };
 

@@ -100,14 +100,14 @@ const loginUser = async (req, res) => {
   if (!userExist) {
     return res.status(404).json({ message: "Invalid email or password" });
   }
-  console.log(userExist, "userExist");
+  // console.log(userExist, "userExist");
 
   const isPasswordMatched = await bcrypt.compare(password, userExist.password);
 
   if (!isPasswordMatched) {
     return res.status(400).json({ message: "Invalid email or password" });
   }
-console.log(userExist,"userExist.role.role")
+// console.log(userExist,"userExist.role.role")
   const token = generateToken(userExist._id, userExist.email , userExist.role.role );
   console.log(token, "token 107");
 
