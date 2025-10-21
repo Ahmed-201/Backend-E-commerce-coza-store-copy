@@ -4,7 +4,6 @@ import addCategory from "../controllers/categoryControllers/addCategory.js";
 import addSubCategory from "../controllers/categoryControllers/addSubCategory.js";
 import addChildCategory from "../controllers/categoryControllers/addChildCategory.js";
 
-import imageUpload from "../controllers/uploader.js";
 import upload from "../Utils/multerUploadImage.js";    //     multer middleware
 import getAllCategories from "../controllers/categoryControllers/getAllCategories.js";
 import getAllSubCategories from "../controllers/categoryControllers/getAllSubCategories.js";
@@ -12,6 +11,9 @@ import getAllChildCategories from "../controllers/categoryControllers/getAllChil
 
 
 import {createProduct} from "../controllers/productControllers/createProduct.js";
+import { getAllProducts } from "../controllers/productControllers/getAllProducts.js";
+import { getProductById } from "../controllers/productControllers/getProductById.js";
+import { orderController } from "../controllers/orderControllers/createOrderController.js";
 
 
 const router = Router();
@@ -40,5 +42,13 @@ router.get("/childCategories", getAllChildCategories);
 
   // product routes
 router.post("/createProduct"  , upload.array("productImages" , 5), createProduct)
+router.get("/allProducts" , getAllProducts)
+router.get("/productById" , getProductById)
+
+  // order routes
+
+
+  router.post("/createOrder", orderController)
+
 
 export default router;
