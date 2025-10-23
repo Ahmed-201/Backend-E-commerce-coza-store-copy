@@ -39,13 +39,14 @@ export const orderController = async (req, res) => {
       item.quantity == null ||
       item.price == null ||
       item.quantity <= 0 ||
-      item.price <= 0
+      item.price <= 0 ||
+      !item.productImage
   );
 
   if (invalidItem) {
     return res.status(400).json({
       message:
-        "Each order item must have valid productId, name, quantity (>0), and price (>0)",
+        "Each order item must have valid productId, productImage ,name, quantity (>0), and price (>0)",
     });
   }
 
@@ -67,7 +68,6 @@ export const orderController = async (req, res) => {
   try {
     //  agr es loop m koi product nhi mila to wo 404 error de dega aur agr stock kam hua to 400 error de dega
     for (const item of orderItems) {
-
       const product = await Product.findById(item.productId);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
@@ -84,11 +84,11 @@ export const orderController = async (req, res) => {
     }
 
     for (const item of orderItems) {
-
-      //  ek ek order item ko save kar raha hai    
+      //  ek ek order item ko save kar raha hai
       const OrderItemSaved = await new orderItem({
         productId: item.productId,
         productName: item.productName,
+        productImage:item.productImage,
         quantity: item.quantity,
         price: item.price,
         size: item.size,
@@ -100,12 +100,20 @@ export const orderController = async (req, res) => {
       console.log(orderItemsSaved, "orderItemsSaved");
 
       // --- Decrease product stock
-      const response = await Product.findByIdAndUpdate(item.productId, {
-        $inc: { quantity: -item.quantity },
-      });
-      console.log(response, "product stock updated");
+      const response = await Product.findByIdAndUpdate(
+        item.productId,
+        { $inc: { quantity: -item.quantity } },
+        { new: true } // 👈 this ensures it returns the updated doc
+      );
+      ////    product quantity is zero then instock false
+      if (response.quantity === 0) {
+        const inStockChanged = await Product.findByIdAndUpdate(
+          item.productId,
+          { $set: { inStock: false } },
+          { new: true } // 👈 this ensures it returns the updated doc
+        );
+      }
     }
-    
   } catch (error) {
     console.log(error, "error updating product quantity");
   }

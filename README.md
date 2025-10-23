@@ -10,6 +10,8 @@ Cloudinary (for storing images in the cloud)
 
 Role based authentication user || vendor || admin 
 
+script start with node index.js
+
 
 
 

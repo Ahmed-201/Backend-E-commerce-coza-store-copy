@@ -14,6 +14,8 @@ import {createProduct} from "../controllers/productControllers/createProduct.js"
 import { getAllProducts } from "../controllers/productControllers/getAllProducts.js";
 import { getProductById } from "../controllers/productControllers/getProductById.js";
 import { orderController } from "../controllers/orderControllers/createOrderController.js";
+import { getOrders } from "../controllers/orderControllers/getOrdersController.js";
+import { getOrderById } from "../controllers/orderControllers/getOrderById.js";
 
 
 const router = Router();
@@ -46,9 +48,11 @@ router.get("/allProducts" , getAllProducts)
 router.get("/productById" , getProductById)
 
   // order routes
-
-
   router.post("/createOrder", orderController)
+  router.get("/getOrders", getOrders)   ////    with pagination ?page= 1 &limit= 10
+  router.get("/getOrderById",getOrderById);
+
+
 
 
 export default router;
