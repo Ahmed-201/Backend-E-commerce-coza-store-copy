@@ -119,6 +119,15 @@ const loginUser = async (req, res) => {
 
   await tokenDocument.save();
 
+
+  // Save token in cookie
+  // res.cookie("token", token, {
+  //     httpOnly: true, // protects from client-side JS access
+  //     // secure: process.env.NODE_ENV === "production", // only send over HTTPS in prod
+  //     sameSite: "strict", // prevents CSRF
+  //     // maxAge: 24 * 60 * 60 * 1000, // 1 day
+  //   })
+
   res.status(201).json({
     message: "sucessfully login",
     token: token,

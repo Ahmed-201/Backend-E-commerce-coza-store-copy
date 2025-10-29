@@ -16,6 +16,8 @@ import { getProductById } from "../controllers/productControllers/getProductById
 import { orderController } from "../controllers/orderControllers/createOrderController.js";
 import { getOrders } from "../controllers/orderControllers/getOrdersController.js";
 import { getOrderById } from "../controllers/orderControllers/getOrderById.js";
+import { updateProduct } from "../controllers/productControllers/updateProduct.js";
+import { updateProductImages } from "../controllers/productControllers/updateProductImages.js";
 
 
 const router = Router();
@@ -33,7 +35,6 @@ router.post("/user/resetPassword",resetPassword);
 router.post("/categories", addCategory);
 router.get("/categories", getAllCategories);
 
-
     // sub category routes
 router.post("/subCategories", addSubCategory);
 router.get("/subCategories", getAllSubCategories);
@@ -46,11 +47,14 @@ router.get("/childCategories", getAllChildCategories);
 router.post("/createProduct"  , upload.array("productImages" , 5), createProduct)
 router.get("/allProducts" , getAllProducts)
 router.get("/productById" , getProductById)
+router.put("/updateProduct/:productId" , updateProduct);
+router.put("/updateProductImages/:productId"  , upload.array("newImages" , 5), updateProductImages)
+
 
   // order routes
-  router.post("/createOrder", orderController)
-  router.get("/getOrders", getOrders)   ////    with pagination ?page= 1 &limit= 10
-  router.get("/getOrderById",getOrderById);
+router.post("/createOrder", orderController)
+router.get("/getOrders", getOrders)   ////    with pagination ?page= 1 &limit= 10
+router.get("/getOrderById",getOrderById);
 
 
 

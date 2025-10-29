@@ -20,7 +20,4 @@ export  const getOrders = async(req,res)=>{
 
 return res.status(200).json({message:"get orders controller works" , totalOrdersCount,totalPages ,orders})
 
-
-
-
 };
