@@ -18,8 +18,8 @@ app.use("/api", userRoutes);    // all routes start here API route
 // Start server after DB connects
 const startServer = async () => {
   try {
-    // await mongoose.connect(process.env.MONGO_URI);
-    // console.log("✅ MongoDB connected");
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("✅ MongoDB connected");
 
     app.listen(PORT, () => {
       console.log(`🚀 Server is listening on port ${PORT}`);
