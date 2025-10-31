@@ -18,6 +18,7 @@ import { getOrders } from "../controllers/orderControllers/getOrdersController.j
 import { getOrderById } from "../controllers/orderControllers/getOrderById.js";
 import { updateProduct } from "../controllers/productControllers/updateProduct.js";
 import { updateProductImages } from "../controllers/productControllers/updateProductImages.js";
+import { updateOrderById } from "../controllers/orderControllers/updateOrderById.js";
 
 
 const router = Router();
@@ -55,6 +56,7 @@ router.put("/updateProductImages/:productId"  , upload.array("newImages" , 5), u
 router.post("/createOrder", orderController)
 router.get("/getOrders", getOrders)   ////    with pagination ?page= 1 &limit= 10
 router.get("/getOrderById",getOrderById);
+router.put("/updateOrder/:orderId" , updateOrderById)
 
 
 

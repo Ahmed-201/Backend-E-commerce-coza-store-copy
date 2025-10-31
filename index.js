@@ -1,4 +1,4 @@
-import userRoutes from "./Routes/index.routes.js";
+import allRoutes from "./Routes/index.routes.js";
 import express from "express"; // ✅ ES Modules
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -11,9 +11,7 @@ const app = express();
 // Correct way to parse incoming JSON
 app.use(express.json());
 
-app.use("/api", userRoutes);    // all routes start here API route
-
-
+app.use("/api", allRoutes);    // all routes start here API route
 
 // Start server after DB connects
 const startServer = async () => {
