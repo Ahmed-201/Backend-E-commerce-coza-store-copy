@@ -4,7 +4,7 @@ import { Product } from "../../Models/product.model.js";
 export const getProductById = async (req, res) => {
   const { productId } = req.body;
 
-  console.log(productId, "productId");
+  // console.log(productId, "productId");
 
   if (!productId) {
     return res.status(400).json({ message: "productId is required" });

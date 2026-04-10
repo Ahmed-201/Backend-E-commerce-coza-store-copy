@@ -19,6 +19,8 @@ import { getOrderById } from "../controllers/orderControllers/getOrderById.js";
 import { updateProduct } from "../controllers/productControllers/updateProduct.js";
 import { updateProductImages } from "../controllers/productControllers/updateProductImages.js";
 import { updateOrderById } from "../controllers/orderControllers/updateOrderById.js";
+import { createPaymentIntent } from "../controllers/paymentContoller/createPaymentIntent.js";
+import {webhookController} from "../controllers/paymentContoller/webHookStripeController.js"
 
 
 const router = Router();
@@ -47,7 +49,7 @@ router.get("/childCategories", getAllChildCategories);
   // product routes
 router.post("/createProduct"  , upload.array("productImages" , 5), createProduct)
 router.get("/allProducts" , getAllProducts)
-router.get("/productById" , getProductById)
+router.post("/productById" , getProductById)
 router.put("/updateProduct/:productId" , updateProduct);
 router.put("/updateProductImages/:productId"  , upload.array("newImages" , 5), updateProductImages)
 
@@ -57,6 +59,11 @@ router.post("/createOrder", orderController)
 router.get("/getOrders", getOrders)   ////    with pagination ?page= 1 &limit= 10
 router.get("/getOrderById",getOrderById);
 router.put("/updateOrder/:orderId" , updateOrderById)
+
+
+  //  payment routes
+
+    router.post("/createPaymentIntent", createPaymentIntent)
 
 
 
