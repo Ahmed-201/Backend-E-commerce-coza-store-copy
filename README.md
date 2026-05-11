@@ -7,6 +7,7 @@ Node.js
 MongoDB
 Mongoose
 Cloudinary (for storing images in the cloud)
+stripe payment gateway
 
 Role based authentication user || vendor || admin 
 
